@@ -1,0 +1,75 @@
+<div class="outercontainer">
+  <!-- Container div with color background-->
+<div class="innercontainer open-sans-mystyle">
+<!--white background div with content inside-->
+
+<h1>{{title}}</h1>
+<p>A place to store your todos</p>
+<table>
+@for (t of myList; track $index) {
+  <tr>
+    <td>
+      {{$index + 1}}.
+    </td>
+    <td [class.completed]="t.completed">
+      {{t.task}} - {{t.duration | number:'1.2-2'}} hr
+    </td>
+    @if(!t.completed){
+          <td>
+
+ <button (click)="completeTask(t)">Complete</button> 
+    </td>
+    }
+@else {
+  <td></td>
+}
+    <td [ngClass]="{
+
+      'low-priority': t.priority === 3,
+      'medium-priority-hidden': t.priority === 2,
+      'high-priority': t.priority === 1
+    }" >
+  {{t.priority === 3 ? "↓ Low Priority ": t.priority ===1 ? "↑ High Priority " : ''}}
+
+     <!--   {{showPriority(t.priority)}}-->
+    </td>
+    <td>
+    <button (click)="deleteTask(t)">x</button> 
+    </td>
+  </tr>
+}
+</table>
+
+
+<table>
+  <tr>
+    <td><label for="task">Task:</label></td>
+    <td><input id="task" type="text" [(ngModel)]="formTask.task" /></td>
+  </tr>
+  <tr>
+    <td><label for="duration">Duration:</label></td>
+    <td><input id="duration" type="number" [(ngModel)]="formTask.duration" /></td>
+  </tr>
+  <tr>
+    <td><label for="priority">Priority:</label></td>
+    <td>
+      <select id="priority" [(ngModel)]="formTask.priority">
+        <option value="1">High</option>
+        <option value="2">Medium</option>
+        <option value="3">Low</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><button (click)="addTask()">Add Task</button></td>
+  </tr>
+</table>
+
+
+
+
+</div>
+
+
+
+</div>
