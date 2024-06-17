@@ -13,7 +13,7 @@ import { find } from 'rxjs';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title:string = 'To Do List';
+  title:string = 'To-Do List';
 
 myList:ToDo[] = [
   {
@@ -44,6 +44,7 @@ myList:ToDo[] = [
 
 deleteTask(targetTask:ToDo):void{
   let index: number = this.myList.findIndex(i => i == targetTask)
+  this.myList.splice(index, 1)
 }
 
 showPriority(num:number):string{
@@ -76,6 +77,35 @@ addTask():void{
   this.myList.push(newTask)
 
 }
+
+IsListCompleted():boolean{
+  //No items
+  if(this.myList.length == 0){
+    return true;
+  }
+  //any incomplete
+  let allComplete: boolean = true;
+  this.myList.forEach((t:ToDo) => {
+    if (t.completed == false){
+      allComplete = false;
+    }
+  });
+      //all complete
+      return allComplete;
+
+}
+
+filter:string=""
+
+GetFiltered():ToDo[] {
+  if(this.filter == ""){
+    return this.myList;
+  }
+  else{
+    return this.myList.filter((t: ToDo) => t.task.toLowerCase().includes(this.filter.toLowerCase()));
+  }
+}
+
 
 }
 

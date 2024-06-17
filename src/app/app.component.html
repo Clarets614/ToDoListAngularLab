@@ -4,7 +4,11 @@
 <!--white background div with content inside-->
 
 <h1>{{title}}</h1>
+
 <p>A place to store your todos</p>
+
+
+
 <table>
 @for (t of myList; track $index) {
   <tr>
@@ -25,11 +29,11 @@
 }
     <td [ngClass]="{
 
-      'low-priority': t.priority === 3,
-      'medium-priority-hidden': t.priority === 2,
-      'high-priority': t.priority === 1
+      'low-priority': t.priority == 3,
+      'medium-priority-hidden': t.priority == 2,
+      'high-priority': t.priority == 1
     }" >
-  {{t.priority === 3 ? "↓ Low Priority ": t.priority ===1 ? "↑ High Priority " : ''}}
+  {{t.priority == 3 ? "↓ Low Priority ": t.priority == 1 ? "↑ High Priority " : ''}}
 
      <!--   {{showPriority(t.priority)}}-->
     </td>
@@ -41,6 +45,15 @@
 </table>
 
 
+@if(IsListCompleted()){
+  <p>Congratulations all tasks are done!</p>
+}
+
+
+
+</div>
+<div class="innercontainer open-sans-mystyle">
+  <h2>Add a New Task</h2>
 <table>
   <tr>
     <td><label for="task">Task:</label></td>
@@ -54,7 +67,7 @@
     <td><label for="priority">Priority:</label></td>
     <td>
       <select id="priority" [(ngModel)]="formTask.priority">
-        <option value="1">High</option>
+        <option value= "1" >High</option>
         <option value="2">Medium</option>
         <option value="3">Low</option>
       </select>
@@ -65,10 +78,9 @@
   </tr>
 </table>
 
-
-
-
 </div>
+
+
 
 
 
